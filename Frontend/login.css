@@ -7,7 +7,7 @@ body {
         height: 100vh;
         margin: 0;
         overflow: hidden; /* Prevent scrollbars */
-        background: url('background-image.jpg') center/cover no-repeat; /* Background image */
+        background: url('./images/a.png') center/cover no-repeat; /* Background image */
         animation: backgroundImageAnimation 20s linear infinite; /* Animation */
     }
     
