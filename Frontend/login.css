@@ -29,7 +29,7 @@ body {
         text-align: center;
     }
     
-}
+
 
 .login-container {
     background-color: #ffffff;
@@ -87,7 +87,7 @@ button {
         transform: scale(1.1); /* Scale up the button on hover */
     }
     
-}
+
 
 button:hover {
     background-color: #0056b3; /* Darken button color on hover */
