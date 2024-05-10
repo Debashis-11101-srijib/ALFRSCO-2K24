@@ -7,8 +7,9 @@ body {
         height: 100vh;
         margin: 0;
         overflow: hidden; /* Prevent scrollbars */
-        background: url('background-image.jpg') center/cover no-repeat; /* Background image */
+        background: url('./images/a.png') center/cover no-repeat; /* Background image */
         animation: backgroundImageAnimation 20s linear infinite; /* Animation */
+        transparancy: 0.5;
     }
     
     @keyframes backgroundImageAnimation {
@@ -29,7 +30,7 @@ body {
         text-align: center;
     }
     
-}
+
 
 .login-container {
     background-color: #ffffff;
@@ -87,7 +88,7 @@ button {
         transform: scale(1.1); /* Scale up the button on hover */
     }
     
-}
+
 
 button:hover {
     background-color: #0056b3; /* Darken button color on hover */
