@@ -32,42 +32,40 @@ body {
 
 
 .login-container {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
-    text-align: center;
-    transition: transform 0.3s ease; /* Animation for container */
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  text-align: center;
+  transition: transform 0.3s ease; /* Animation for container */
 }
 
 .login-container:hover {
-    transform: scale(1.05); /* Enlarge container on hover */
+  transform: scale(1.05); /* Enlarge container on hover */
 }
 
 .input-group {
-    margin-bottom: 15px;
-    text-align: left;
+  margin-bottom: 15px;
+  text-align: left;
 }
 
 .input-group label {
-    display: block;
-    margin-bottom: 5px;
+  display: block;
+  margin-bottom: 5px;
 }
 
 .input-group input {
-    width: 100%;
-    padding: 8px;
-    border-radius: 3px;
-    border: 1px solid #ddd;
-    transition: border-color 0.3s ease; /* Animation for input border */
-    border-color: #007bff; /* Change border color on focus */
-    
-    
+  width: 100%;
+  padding: 8px;
+  border-radius: 3px;
+  border: 1px solid #ddd;
+  transition: border-color 0.3s ease; /* Animation for input border */
+  border-color: #007bff; /* Change border color on focus */
 }
 
 .input-group input:focus {
-    border-color: #007bff; /* Highlight border on focus */
+  border-color: #007bff; /* Highlight border on focus */
 }
 
 button {
@@ -90,23 +88,31 @@ button {
 
 
 button:hover {
-    background-color: #0056b3; /* Darken button color on hover */
+  background-color: #0056b3; /* Darken button color on hover */
 }
 
 .error-text {
-    color: red;
-    font-size: 14px;
-    margin-top: 10px;
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
 
-        animation: shake 0.4s ease-in-out; /* Shake animation */
-    
-    
-    @keyframes shake {
-        0% { transform: translateX(0); }
-        25% { transform: translateX(-5px); }
-        50% { transform: translateX(5px); }
-        75% { transform: translateX(-3px); }
-        100% { transform: translateX(0); }
+  animation: shake 0.4s ease-in-out; /* Shake animation */
+
+  @keyframes shake {
+    0% {
+      transform: translateX(0);
     }
-    
+    25% {
+      transform: translateX(-5px);
+    }
+    50% {
+      transform: translateX(5px);
+    }
+    75% {
+      transform: translateX(-3px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
 }
