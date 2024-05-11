@@ -1,27 +1,54 @@
 const express = require('express');
-const path = require('path');
-const config = require("./config");
+const store = require("./config");
 const User = require("./model/user.model");
 const bcrypt = require('bcrypt');
+const session = require('express-session');
 
 const app = express();
 
 app.use(express.json())
 app.use(express.static('Frontend'))
 
+
+// Session middleware
+app.use(session({
+    secret: 'your-secret-key',
+    resave: false,
+    saveUninitialized: false,
+    store: store
+}));
+
 // app.use('/login',express.static(path.join(__dirname + '/Frontend/login.html')))
 
 app.get('/', (req, res) => {
-    res.sendFile('/Frontend/index.html', {root: __dirname})
+    res.sendFile('/Frontend/index.html', { root: __dirname })
 })
 
 app.get('/signup', (req, res) => {
-    res.sendFile('/Frontend/signup.html', {root: __dirname})
+    res.sendFile('/Frontend/signup.html', { root: __dirname })
 })
 
 app.get('/login', (req, res) => {
-    res.sendFile('/Frontend/login.html', {root: __dirname})
+    res.sendFile('/Frontend/login.html', { root: __dirname })
 })
+
+app.get('/logout', (req, res) => {
+    req.session.destroy();
+    res.json({ message: 'Logged out successfully' });
+});
+
+// Check authentication middleware
+const isAuthenticated = (req, res, next) => {
+    if (!req.session.userId) {
+        return res.status(401).json({ message: 'Unauthorized' });
+    }
+    next();
+};
+
+// Protected route
+app.get('/profile', isAuthenticated, (req, res) => {
+    res.json({ message: 'Welcome to your profile' });
+});
 
 // Register User
 app.post("/api/signup", async (req, res) => {
@@ -36,10 +63,10 @@ app.post("/api/signup", async (req, res) => {
     }
 
     // Check if the username already exists in the database
-    const existingUser = await User.findOne({ name: data.name });
+    const existingUser = await User.findOne({ email: data.email });
 
     if (existingUser) {
-        res.send('User already exists. Please choose a different username.');
+        res.send('Email already exists. Please choose a different username.');
     } else {
         // Hash the password using bcrypt
         const saltRounds = 10; // Number of salt rounds for bcrypt
@@ -55,18 +82,42 @@ app.post("/api/signup", async (req, res) => {
 
 // Login user 
 app.post("/api/login", async (req, res) => {
+
+    const data = {
+        password: req.body.password,
+        email: req.body.email
+    }
+
     try {
-        const check = await User.findOne({ name: req.body.username });
-        if (!check) {
-            res.send("User name cannot found")
+        const user = await User.findOne({ email: data.email });
+        console.log(user)
+        if (!user) {
+            res.send("User cannot found")
         }
         // Compare the hashed password from the database with the plaintext password
-        const isPasswordMatch = await bcrypt.compare(req.body.password, check.password);
+        const isPasswordMatch = await bcrypt.compare(data.password, user.password);
         if (!isPasswordMatch) {
             res.send("wrong Password");
         }
         else {
-            res.render("home");
+            const userInfo = {};
+            const selectedItems = ['_id', 'name', 'email', 'phone', 'collegeName', 'gender'];
+
+            selectedItems.forEach(key => {
+                // if(user.hasOwnProperty(key)) {
+                //     console.log(user[key])
+                // }
+                userInfo[key] = user[key];
+            });
+            
+            req.session.user = userInfo;
+            res.json(
+                {
+                    "message": "Login successful",
+                    "user": req.session.user
+                }
+            );
+
         }
     }
     catch {
