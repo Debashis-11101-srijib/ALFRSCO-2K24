@@ -3,40 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
+    <title>Alfresco2k24 login</title>
     <link rel="stylesheet" href="signup.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
 </head>
 <body>
-    <div class="background"></div>
-    <div class="signup-container">
-        <h2>Sign Up</h2>
-        <form id="signup-form">
-            <input type="text" placeholder="Full Name" required>
-            <input type="email" placeholder="Email Address" required>
-            <input type="phonenumber" placeholder="Phone Number" required>
-            
-            <input type="text" placeholder="College Name" required>
-            <input type="text" placeholder="Present Address" required>
-            <input type="text" placeholder="College Name" required>
-            <input type="number" placeholder="Pin No" required>
-
-            <input type="password" placeholder="Password" required>
-
-            <div class="gender-section">
-                <label>Gender:</label>
-                <label><input type="radio" name="gender" value="male" required> Male</label>
-                <label><input type="radio" name="gender" value="female" required> Female</label>
-                <label><input type="radio" name="gender" value="other" required> Other</label>
+    <!-- <div class="login-container">
+        <h2>Alfreshco2k24 login</h2>
+        <form id="loginForm" onsubmit="return validateForm()">
+            <div class="input-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
             </div>
-            <label>
-                <input type="checkbox" required>
-                I agree to the terms & conditions 
-            </label>
-
-            <button type="submit">Sign Up</button>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" id="loginButton">Login</button>
         </form>
+        <p id="errorText" class="error-text"></p>
+    </div> -->
+
+    <div class="container">
+        <div class="content">
+            <h2 class="logo"><i class='bx bx-expand-horizontal'></i>Alfreshco2k24 login</h2>
+
+            <div class="text-sci">
+                <h2>Welcome! <br><span>To Our New Website. </span></h2>
+
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga, asperiores.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="bx bxl-linkedin"></i></a>
+                    <a href="#"><i class="bx bxl-facebook"></i></a>
+                    <a href="#"><i class="bx bxl-twitter"></i></a>
+                    <a href="#"><i class="bx bxl-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="logreg-box">
+            <div class="form-box login">
+                <form action="#">
+                    <h2>Sign In</h2>
+
+                    <div class="input-box">
+                        <span class="icon"><i class='bx bxs-envelope' ></i></span>
+                        <input type="email" recuired>
+                        <label>Email</label>
+                    </div>
+                    <div class="input-box">
+                        <span class="icon"><i class='bx bxs-lock-alt' ></i></span>
+                        <input type="pasword" recuired>
+                        <label>Password</label>
+                    </div>
+
+                    <div class="remember-forgot">
+                        <label><input type="checkbox">Remember me</label>
+                        <a href="#">Forgot password?</a>
+                    </div>
+
+                    <button type="submit" class="btn">Sign In</button>
+
+                    <div class="login-register">
+                        <p>Don't  have an account? <a href="signup" class="register-link">Sign up</a> </p>
+                    </div>
+
+                </form>
+            </div>
+        </div>
     </div>
 
-    <script src="signup.js"></script>
+    <script src="login.js"></script>
 </body>
 </html>
