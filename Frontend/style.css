@@ -3,7 +3,7 @@
 body, html {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
     height: 95%;
     scrollbar-width: none;
    
@@ -31,6 +31,28 @@ header {
   .left-side img {
     height: 80px;
     width: auto;
+  }
+
+  .right-side li a{
+   position: relative;
+   font-size: 16px;
+    font-weight: 500;
+  }
+
+  .right-side li a::after{
+    content: '';
+    position: absolute;
+    width: 100%;
+    bottom: -6px;
+    left: 0;
+    height: 2px;
+    border-radius: 5px;
+    background: #f1f3f8;
+    transform: translateY(10px);
+  }
+
+  .right-side li a:hover::after{
+    transform: translateY(0);
   }
   
   .right-side ul {
