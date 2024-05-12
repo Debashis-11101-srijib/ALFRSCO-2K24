@@ -1,6 +1,7 @@
 const express = require('express');
 const store = require("./config");
 const User = require("./model/user.model");
+const Admin = require("./model/admin.model");
 const bcrypt = require('bcrypt');
 const session = require('express-session');
 
@@ -74,8 +75,68 @@ app.post("/api/signup", async (req, res) => {
 
         data.password = hashedPassword; // Replace the original password with the hashed one
 
-        const userdata = await User.create(data);
-        res.send(userdata)
+        const user = await User.create(data);
+        const userInfo = {};
+            const selectedItems = ['_id', 'name', 'email', 'phone', 'collegeName', 'gender'];
+
+            selectedItems.forEach(key => {
+                // if(user.hasOwnProperty(key)) {
+                //     console.log(user[key])
+                // }
+                userInfo[key] = user[key];
+            });
+            
+            req.session.user = userInfo;
+            res.json(
+                {
+                    "message": "Signup successful",
+                    "user": req.session.user
+                }
+            );
+    }
+
+});
+
+// Register Admin
+app.post("/api/signup/admin", async (req, res) => {
+
+    const data = {
+        name: req.body.username,
+        password: req.body.password,
+        email: req.body.email,
+        admin: true
+    }
+
+    // Check if the username already exists in the database
+    const existingadmin = await Admin.findOne({ email: data.email });
+
+    if (existingadmin) {
+        res.send('Email already exists. Please choose a different adminname.');
+    } else {
+        // Hash the password using bcrypt
+        const saltRounds = 10; // Number of salt rounds for bcrypt
+        const hashedPassword = await bcrypt.hash(data.password, saltRounds);
+
+        data.password = hashedPassword; // Replace the original password with the hashed one
+
+        const admin = await Admin.create(data);
+        const adminInfo = {};
+            const selectedItems = ['_id', 'name', 'email', 'admin'];
+
+            selectedItems.forEach(key => {
+                // if(admin.hasOwnProperty(key)) {
+                //     console.log(admin[key])
+                // }
+                adminInfo[key] = admin[key];
+            });
+            
+            req.session.admin = adminInfo;
+            res.json(
+                {
+                    "message": "Signup successful",
+                    "admin": req.session.admin
+                }
+            );
     }
 
 });
@@ -115,6 +176,51 @@ app.post("/api/login", async (req, res) => {
                 {
                     "message": "Login successful",
                     "user": req.session.user
+                }
+            );
+
+        }
+    }
+    catch {
+        res.send("wrong Details");
+    }
+});
+
+// Login admin
+app.post("/api/login/admin", async (req, res) => {
+
+    const data = {
+        password: req.body.password,
+        email: req.body.email
+    }
+    
+    try {
+        const admin = await Admin.findOne({ email: data.email });
+        console.log(admin)
+        if (!admin) {
+            res.send("User cannot found")
+        }
+        // Compare the hashed password from the database with the plaintext password
+        const isPasswordMatch = await bcrypt.compare(data.password, admin.password);
+        if (!isPasswordMatch) {
+            res.send("wrong Password");
+        }
+        else {
+            const adminInfo = {};
+            const selectedItems = ['_id', 'name', 'email', 'admin'];
+
+            selectedItems.forEach(key => {
+                // if(user.hasOwnProperty(key)) {
+                //     console.log(user[key])
+                // }
+                adminInfo[key] = admin[key];
+            });
+            
+            req.session.admin = adminInfo;
+            res.json(
+                {
+                    "message": "Login successful",
+                    "admin": req.session.admin
                 }
             );
 
